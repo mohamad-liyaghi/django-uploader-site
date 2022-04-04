@@ -5,4 +5,5 @@ venv/
 *.pot
 *.pyc
 *.env
+migration/
 db.sqlite3

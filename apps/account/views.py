@@ -32,3 +32,6 @@ class Register(AuthMixin,CreateView):
 def Logout(request):
 	logout(request) if request.user.is_authenticated else redirect("account:register")
 	return redirect("account:register")
+#404 page
+def handler404(request,exception):
+    return render(request,"404/404.html")
