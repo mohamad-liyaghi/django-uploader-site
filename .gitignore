@@ -6,4 +6,5 @@ venv/
 *.pyc
 *.env
 migration/
+files/
 db.sqlite3

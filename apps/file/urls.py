@@ -1,2 +1,6 @@
 from django.urls import path
-urlpatterns = []
+from .views import Home
+app_name = "file"
+urlpatterns = [
+    path("",Home.as_view(),name= "home"),
+]
