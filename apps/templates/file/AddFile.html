@@ -1,0 +1,25 @@
+{%extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}Add File Page{%endblock%}
+</head>
+<body>
+{%block body%}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="shadow p-4 mb-5 bg-body rounded">
+        {{ form.title|as_crispy_field }}
+        <br>
+        {{ form.description|as_crispy_field }}
+        <br>
+        {{ form.file|as_crispy_field }}
+        <br>
+        <input type="submit" value="Save" class="btn btn-success">
+        <br>
+    </div>
+</form>
+{%endblock%}
+</body>
+</html>

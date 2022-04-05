@@ -13,7 +13,7 @@ class Login(AuthMixin,LoginView):
     template_name = "account/login.html"
     @transaction.atomic
     def get_success_url(self):
-        messages.success(request, 'You were logged in successfully')
+        messages.success(self.request, 'You were logged in successfully')
         return reverse_lazy('file:home')
 # Register view
 class Register(AuthMixin,CreateView):
@@ -22,7 +22,7 @@ class Register(AuthMixin,CreateView):
     @transaction.atomic
     def form_valid(self, form):
         form.save()
-        messages.success(request, 'You were registered in successfully')
+        messages.success(self.request, 'You were registered in successfully')
         return redirect('file:home')
     def form_invalid(self, form):
         messages.error(self.request, 'an error occurred while processing your request')
