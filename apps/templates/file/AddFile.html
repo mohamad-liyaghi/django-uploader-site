@@ -8,6 +8,7 @@
 </head>
 <body>
 {%block body%}
+<br>
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="shadow p-4 mb-5 bg-body rounded">
         {{ form.title|as_crispy_field }}
