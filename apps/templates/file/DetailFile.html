@@ -12,8 +12,8 @@
 <div class="shadow p-4 mb-5 bg-body rounded">
     Title: {{object.title}}<br><hr>
     Description: {{object.description}}<br><hr>
-    Domain: <p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}
-    <input style="width:100px;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/></p>
+    Domain: <p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}</p>
+    <input style="width:100px;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/>
     <script>
             function copy(element_id){
           var aux = document.createElement("div");
@@ -26,9 +26,7 @@
           document.body.removeChild(aux);}
     </script>
     <hr>
-    <form method="post"> {%csrf_token%}
-        Download: <input type="submit" value="Get" class="btn btn-secondary">
-    </form>
+        Download: <a href="{% url 'file:download-file' object.slug%}" type="submit" class="btn btn-secondary">Download</a>
     <hr>
     owner: {{object.owner}}
 

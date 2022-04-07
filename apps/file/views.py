@@ -43,9 +43,10 @@ class DetailFile(DetailView):
     template_name = "file/DetailFile.html"
     def get_object(self):
         slug = self.kwargs.get('slug')
-        global object
         object = get_object_or_404(UserFile, slug=slug)
         return object
-    def post(self, request, *args, **kwargs):
-        return FileResponse(object.file, as_attachment=True)
 
+class FileDownload(View):
+    def get(self, request,slug, *args, **kwargs):
+        object = get_object_or_404(UserFile, slug=slug)
+        return FileResponse(object.file, as_attachment=True)
