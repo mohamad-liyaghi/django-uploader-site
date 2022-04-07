@@ -1,0 +1,39 @@
+{%extends 'base/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}Detail File Page{%endblock%}
+
+</head>
+<body>
+{%block body%}
+<br>
+<div class="shadow p-4 mb-5 bg-body rounded">
+    Title: {{object.title}}<br><hr>
+    Description: {{object.description}}<br><hr>
+    Domain: <p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}
+    <input style="width:100px;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/></p>
+    <script>
+            function copy(element_id){
+          var aux = document.createElement("div");
+          aux.setAttribute("contentEditable", true);
+          aux.innerHTML = document.getElementById(element_id).innerHTML;
+          aux.setAttribute("onfocus", "document.execCommand('selectAll',false,null)");
+          document.body.appendChild(aux);
+          aux.focus();
+          document.execCommand("copy");
+          document.body.removeChild(aux);}
+    </script>
+    <hr>
+    <form method="post"> {%csrf_token%}
+        Download: <input type="submit" value="Get" class="btn btn-secondary">
+    </form>
+    <hr>
+    owner: {{object.owner}}
+
+</div>
+{%endblock%}
+</body>
+
+</html>

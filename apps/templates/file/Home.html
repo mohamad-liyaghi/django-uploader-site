@@ -12,6 +12,11 @@
 <div class="container">
     <div class="shadow p-4 mb-5 bg-body rounded">
         {% for object in object_list %}
+            {%if object_list%}
+                hi
+            {%else%}
+                hi
+            {%endif%}
         <div class="row align-items-start">
             <ul class="list-group">
               <li class="list-group-item">
@@ -23,7 +28,7 @@
                         Slug: {{object.slug}}
                     </div>
                     <div class="col-sm">
-                     <a href="#" class="btn btn-secondary">Preview</a>
+                     <a href="{%url 'file:detail-file' object.slug %}" class="btn btn-secondary">Preview</a>
                      <a href="#" class="btn btn-danger">Delete</a>
                     </div>
                   </div>
@@ -31,8 +36,8 @@
                 <br>
             </ul>
         </div>
-        {%endfor%}
     </div>
+    {%endfor%}
 </div>
 
 {%endblock%}
