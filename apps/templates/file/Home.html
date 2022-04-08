@@ -11,33 +11,31 @@
 <br>
 <div class="container">
     <div class="shadow p-4 mb-5 bg-body rounded">
+        Limit: {{request.user.limit}}/10 <hr>
         {% for object in object_list %}
-            {%if object_list%}
-                hi
-            {%else%}
-                hi
-            {%endif%}
         <div class="row align-items-start">
             <ul class="list-group">
-              <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm">
-                        Name: {{object.title}}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm">
+                            Name: {{object.title}}
+                        </div>
+                        <div class="col-sm">
+                            Slug: {{object.slug}}
+                        </div>
+                        <div class="col-sm">
+                            <a href="{%url 'file:detail-file' object.slug %}" class="btn btn-secondary">Preview</a>
+                            <a href="{%url 'file:delete-file' object.slug%}" class="btn btn-danger">Delete</a>
+                        </div>
                     </div>
-                    <div class="col-sm">
-                        Slug: {{object.slug}}
-                    </div>
-                    <div class="col-sm">
-                     <a href="{%url 'file:detail-file' object.slug %}" class="btn btn-secondary">Preview</a>
-                     <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-              </li>
+                </li>
                 <br>
             </ul>
         </div>
+        {%endfor%}
     </div>
-    {%endfor%}
+
+
 </div>
 
 {%endblock%}

@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.views.generic import View,ListView,DetailView
+from django.views.generic import View,ListView,DetailView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
+from django.urls import reverse_lazy
 from django.http import FileResponse
 import uuid
 from file.models import UserFile
@@ -32,7 +33,7 @@ class AddFile(LoginRequiredMixin,UserLimit,View):
             form.owner = self.request.user
             form.save()
             User.objects.filter(username=self.request.user.username).update(
-                limit= self.request.user.limit - 2
+                limit= self.request.user.limit - 1
             )
             return redirect(self.success_url)
         else:
@@ -46,7 +47,15 @@ class DetailFile(DetailView):
         object = get_object_or_404(UserFile, slug=slug)
         return object
 
+# File download view
 class FileDownload(View):
     def get(self, request,slug, *args, **kwargs):
         object = get_object_or_404(UserFile, slug=slug)
         return FileResponse(object.file, as_attachment=True)
+
+# File delete view
+def FileDelete(request, slug):
+    model = UserFile.objects.get(slug=slug)
+    model.delete()
+    User.objects.filter(username=request.user.username).update(limit=request.user.limit + 1)
+    return redirect('file:home')
