@@ -7,5 +7,5 @@ venv/
 *.env
 migration/
 media/
-
+uploads/
 db.sqlite3

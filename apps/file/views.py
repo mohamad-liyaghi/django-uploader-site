@@ -56,6 +56,7 @@ class FileDownload(View):
 # File delete view
 def FileDelete(request, slug):
     model = UserFile.objects.get(slug=slug)
+    print(model.file)
     model.delete()
     User.objects.filter(username=request.user.username).update(limit=request.user.limit + 1)
     return redirect('file:home')
