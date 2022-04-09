@@ -10,8 +10,12 @@
 {%block body%}
 <br>
 <div class="container">
-    <div class="shadow p-4 mb-5 bg-body rounded">
-        Limit: {{request.user.limit}}/10 <hr>
+        Limit: {%if request.user.is_special%}
+                    {{request.user.limit}}/50
+                {%else%}
+                    {{request.user.limit}}/10
+                {%endif%}
+        <br>Is special: {{request.user.is_special}}<hr>
         {%if object_list.count == 0%}
             <p>you haven't uploaded any file yet...</p>
             <a href="{%url 'file:add-file'%}">Add new file</a>

@@ -12,7 +12,7 @@ from .mixins import UserLimit
 # Create your views here.
 # Home page view
 class Home(LoginRequiredMixin,ListView):
-    template_name = "file/Home.html"
+    template_name = "base/Home.html"
     def get_queryset(self):
         object = UserFile.objects.filter(owner=self.request.user)
         return object
@@ -56,7 +56,6 @@ class FileDownload(View):
 # File delete view
 def FileDelete(request, slug):
     model = UserFile.objects.get(slug=slug)
-    print(model.file)
     model.delete()
     User.objects.filter(username=request.user.username).update(limit=request.user.limit + 1)
     return redirect('file:home')

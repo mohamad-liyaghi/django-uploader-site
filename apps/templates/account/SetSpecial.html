@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}Set Special{%endblock%}
+</head>
+<body>
+{% block body %}
+    <form method="post">{%csrf_token%}
+        <h4>Update your account</h4> <br>
+        <input type="submit" value="Update" class="btn btn-success">
+    </form>
+{% endblock %}
+</body>
+</html>
