@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.views.generic import View,ListView,DetailView,DeleteView
+from django.views.generic import View,ListView,DetailView,DeleteView,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.urls import reverse_lazy
@@ -17,27 +17,22 @@ class Home(LoginRequiredMixin,ListView):
         object = UserFile.objects.filter(owner=self.request.user)
         return object
 # Add file page view
-class AddFile(LoginRequiredMixin,UserLimit,View):
+class AddFile(LoginRequiredMixin,UserLimit,FormView):
     template_name = "file/AddFile.html"
     form_class = FileForm
     success_url = "file:home"
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
-    @transaction.atomic
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.slug = uuid.uuid4().hex.upper()[0:6]
-            form.owner = self.request.user
-            form.save()
-            User.objects.filter(username=self.request.user.username).update(
-                limit= self.request.user.limit - 1
-            )
-            return redirect(self.success_url)
-        else:
-            return render(request, self.template_name, {'form': form})
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST, self.request.FILES)
+        form = form.save(commit=False)
+        form.slug = uuid.uuid4().hex.upper()[0:6]
+        form.owner = self.request.user
+        form_file = form.file
+        form.save()
+        User.objects.filter(username=self.request.user.username).update(
+            limit=self.request.user.limit - 1
+        )
+        return redirect(self.success_url)
+
 
 # File detail view
 class DetailFile(DetailView):
