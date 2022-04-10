@@ -15,12 +15,15 @@
                 {%else%}
                     {{request.user.limit}}/10
                 {%endif%}
-        <br>Is special: {{request.user.is_special}}<hr>
+        <br>Is special: {{request.user.is_special}}
+        <br><a href="{%url 'file:add-file' %}">Add file</a>
+    <hr>
         {%if object_list.count == 0%}
             <p>you haven't uploaded any file yet...</p>
             <a href="{%url 'file:add-file'%}">Add new file</a>
         {%else%}
             {% for object in object_list %}
+        <div class="text-center">
                 <div class="row align-items-start">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -42,9 +45,8 @@
                 </div>
                 {%endfor%}
             </div>
+        </div>
         {%endif%}
-
-
 </div>
 
 {%endblock%}
