@@ -23,3 +23,8 @@ $ pip install -r requirement.txt
 ```
 $ python manage.py runserver
 ```
+<hr>
+## Shots:
+<img src="https://github.com/Ml06py/django-uploader/blob/main/shot/shot1.png" alt="shot1"> <br>
+<img src="https://github.com/Ml06py/django-uploader/blob/main/shot/shot2.png" alt="shot2">
+
