@@ -7,6 +7,6 @@ class UserFile(models.Model):
     description = models.TextField()
     slug = models.SlugField(unique=True,blank=True,null=True)
     owner =  models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
-    file = models.FileField()
+    file = models.FileField(upload_to="files/")
     def __str__(self):
         return self.title

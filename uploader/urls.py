@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/',include("apps.account.urls")),
     path("",include("apps.file.urls")),
-]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 handler404 = 'account.views.handler404'

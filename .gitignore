@@ -9,3 +9,4 @@ migration/
 media/
 uploads/
 db.sqlite3
+media/

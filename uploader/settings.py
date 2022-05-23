@@ -119,7 +119,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'apps/static')
 STATIC_URL = 'apps/static/'
-MEDIA_ROOT = 'apps/uploads/files'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -130,3 +130,6 @@ LOGIN_REDIRECT_URL = "file:home"
 LOGIN_URL = "account:login"
 LOGOUT_REDIRECT_URL = "file:home"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'apps/uploads/files'
