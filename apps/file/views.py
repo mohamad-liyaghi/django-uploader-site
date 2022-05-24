@@ -40,6 +40,9 @@ class DetailFile(DetailView):
     def get_object(self):
         slug = self.kwargs.get('slug')
         object = get_object_or_404(UserFile, slug=slug)
+        ip_address = self.request.user.ip_address
+        if ip_address not in object.views.all():
+            object.views.add(ip_address)
         return object
 
 # File download view

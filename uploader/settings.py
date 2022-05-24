@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'django-insecure-sn&4tc%+fagv_owv4z$96u(=&@y%n(kf1#a8edt$rwh!&#%eb5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.file.middleware.SaveIpAddressMiddleware',
 ]
 
 ROOT_URLCONF = 'uploader.urls'

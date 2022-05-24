@@ -9,10 +9,12 @@
 <body>
 {%block body%}
 <br>
-    Title: {{object.title}}<br><hr>
-    Description: {{object.description}}<br><hr>
-    Domain: <p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}/</p>
+    <h3>Title: {{object.title}}</h3>  <br><hr>
+    <h5>Description: {{object.description}}</h5> <br><hr>
+    <div>
+    <h5>Domain:</h5><p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}/</p>
     <input style="width:100px;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/>
+    </div>
     <script>
             function copy(element_id){
           var aux = document.createElement("div");
@@ -25,9 +27,10 @@
           document.body.removeChild(aux);}
     </script>
     <hr>
-        Download: <a href="{% url 'file:download-file' object.slug%}" type="submit" class="btn btn-secondary">Download</a>
+        Download link:   <a href="{% url 'file:download-file' object.slug%}" type="submit" class="btn btn-secondary">Download</a>
     <hr>
-    owner: {{object.owner}}
+    <h6> Viewed by {{object.views.count}} person</h6><hr>
+    <h5> Uploaded by: {{object.owner}}</h5><hr>
 
 {%endblock%}
 </body>
