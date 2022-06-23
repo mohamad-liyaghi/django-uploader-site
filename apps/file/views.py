@@ -27,11 +27,15 @@ class AddFile(LoginRequiredMixin,UserLimit,FormView):
         form.slug = uuid.uuid4().hex.upper()[0:6]
         form.owner = self.request.user
         form_file = form.file
-        form.save()
-        User.objects.filter(username=self.request.user.username).update(
-            limit=self.request.user.limit - 1
-        )
-        return redirect(self.success_url)
+        if form_file.size < 5000000 :
+            form.save()
+            User.objects.filter(username=self.request.user.username).update(
+                limit=self.request.user.limit - 1
+            )
+            return redirect(self.success_url)
+
+        else:
+            return redirect(self.success_url)
 
 
 # File detail view
