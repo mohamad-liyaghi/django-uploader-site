@@ -1,26 +1,15 @@
-{%extends 'base/base.html'%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {%block title%}Login{%endblock%}
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock title %}
+
 {% block body %}
-<br/>
-		<form action="" method=POST>
-			{% csrf_token %}
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter your username">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password"placeholder="Enter your Password">
-          </div>
-            <input type="submit" value="Login" class="btn btn-success">
-		</form>
-<br/><br/>
-{% endblock %}
-</body>
-</html>
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.login | as_crispy_field }} <br>
+    {{ form.password | as_crispy_field }} <br>
+    <button class="btn btn-success" type="submit">Login</button>
+  </form>
+
+{% endblock body %}

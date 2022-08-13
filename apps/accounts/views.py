@@ -8,14 +8,7 @@ from django.db import transaction
 from .forms import RegisterForm
 from .mixins import AuthMixin,SetSpecialMixin
 from file.models import User
-# Create your views here.
-# login view
-class Login(AuthMixin,LoginView):
-    template_name = "account/login.html"
-    @transaction.atomic
-    def get_success_url(self):
-        messages.success(self.request, 'You were logged in successfully')
-        return reverse_lazy('file:home')
+
 
 
 # Logout view
