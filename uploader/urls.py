@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/',include("apps.account.urls")),
+    path('accounts/',include("apps.accounts.urls")),
     path("",include("apps.file.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-handler404 = 'account.views.handler404'
+handler404 = 'accounts.views.handler404'

@@ -11,7 +11,7 @@ from file.models import User
 # Create your views here.
 # login view
 class Login(AuthMixin,LoginView):
-    template_name = "account/login.html"
+    template_name = "accounts/login.html"
     @transaction.atomic
     def get_success_url(self):
         messages.success(self.request, 'You were logged in successfully')
@@ -19,7 +19,7 @@ class Login(AuthMixin,LoginView):
 # Register view
 class Register(AuthMixin,CreateView):
     form_class = RegisterForm
-    template_name = 'account/register.html'
+    template_name = 'accounts/register.html'
     @transaction.atomic
     def form_valid(self, form):
         form.save()
@@ -27,16 +27,16 @@ class Register(AuthMixin,CreateView):
         return redirect('file:home')
     def form_invalid(self, form):
         messages.error(self.request, 'an error occurred while processing your request')
-        return redirect('account:register')
+        return redirect('accounts:register')
 
 # Logout view
 def Logout(request):
-	logout(request) if request.user.is_authenticated else redirect("account:register")
-	return redirect("account:register")
+	logout(request) if request.user.is_authenticated else redirect("accounts:register")
+	return redirect("accounts:register")
 
 # Set special page
 class SetSpecial(SetSpecialMixin,TemplateView):
-    template_name = "account/SetSpecial.html"
+    template_name = "accounts/SetSpecial.html"
     def post(self,request):
         User.objects.filter(username=self.request.user.username).update(
             is_special = True,

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.http import FileResponse
 import uuid
 from file.models import UserFile
-from account.models import User
+from accounts.models import User
 from .forms import FileForm
 from .mixins import UserLimit
 # Create your views here.

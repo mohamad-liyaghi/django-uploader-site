@@ -5,7 +5,6 @@ venv/
 *.pot
 *.pyc
 *.env
-migration/
 media/
 uploads/
 db.sqlite3
