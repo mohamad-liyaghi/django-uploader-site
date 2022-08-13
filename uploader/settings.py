@@ -36,9 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+
     'apps.accounts.apps.AccountsConfig',
     'apps.file.apps.FileConfig',
+
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -126,11 +131,32 @@ STATIC_URL = 'apps/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = "accounts.User"
-LOGIN_REDIRECT_URL = "file:home"
-LOGIN_URL = "accounts:login"
-LOGOUT_REDIRECT_URL = "file:home"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'apps/uploads/files'
+
+# Allauth configs
+SITE_ID = 1
+AUTH_USER_MODEL = "accounts.User"
+
+AUTHENTICATION_BACKEND = {
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+}
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_FORMS = {"signup" : "apps.accounts.forms.RegisterForm"}
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+
+
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+LOGIN_REDIRECT_URL = "file:home"
+LOGIN_URL = "account_login"
+LOGOUT_REDIRECT_URL = "account_login"

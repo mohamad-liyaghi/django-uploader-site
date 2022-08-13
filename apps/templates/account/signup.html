@@ -1,9 +1,10 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base.html' %}\
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {%block title%}Register user{%endblock%}
+    {%block title%}Register{%endblock%}
 </head>
 <body>
 {% block body %}
@@ -17,11 +18,16 @@
 
 	<h1>Register</h1>
 <br/>
-		<form action="{% url 'account:register' %}" method=POST>
+		<form action="" method=POST>
 			{% csrf_token %}
-			{{ form.as_p }}
+			{% csrf_token %}
+			{{ form.email | as_crispy_field }} <br>
+			{{ form.first_name | as_crispy_field }} <br>
+			{{ form.last_name | as_crispy_field }} <br>
+			{{ form.password1 | as_crispy_field }} <br>
+			{{ form.password2 | as_crispy_field }} <br>
 			<br/><br/>
-			<input type="submit" value="Submit" class="btn btn-success">
+			<input type="submit" value="Register" class="btn btn-success">
 		</form>
 <br/><br/>
 {% endblock %}
