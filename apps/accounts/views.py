@@ -1,26 +1,26 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth.views import LoginView
-from django.views.generic import  CreateView,TemplateView
-from django.urls import reverse_lazy
-from django.contrib.auth import logout
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import  TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.db import transaction
-from .forms import RegisterForm
-from .mixins import AuthMixin,SetSpecialMixin
+from .mixins import SetSpecialMixin
 from file.models import User
 
 
 
 # Set special page
-class SetSpecial(SetSpecialMixin,TemplateView):
+class SetSpecial(LoginRequiredMixin, SetSpecialMixin, TemplateView):
+    '''
+        Promote a user as special user
+    '''
     template_name = "account/SetSpecial.html"
-    def post(self,request):
-        User.objects.filter(username=self.request.user.username).update(
-            is_special = True,
-            limit=50
-        )
+    def get(self,request):
+        user = get_object_or_404(User, email= self.request.user.email, id= self.request.user.id)
+        user.is_special = True
+        user.limit = 50
+        user.save()
         messages.success(self.request, 'from now on, you are a special user')
         return redirect("file:home")
+
 
 #404 page
 def handler404(request,exception):
