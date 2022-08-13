@@ -11,11 +11,6 @@ from file.models import User
 
 
 
-# Logout view
-def Logout(request):
-	logout(request) if request.user.is_authenticated else redirect("account:register")
-	return redirect("account:register")
-
 # Set special page
 class SetSpecial(SetSpecialMixin,TemplateView):
     template_name = "account/SetSpecial.html"
