@@ -4,11 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.http import FileResponse
-import uuid
+from django.utils.text import slugify
 from file.models import UserFile
 from accounts.models import User
 from .forms import FileForm
-from .mixins import UserLimit
+from .mixins import LimitMixin
 
 class FileList(LoginRequiredMixin, ListView):
     '''A list of all uploaded files from a user'''
@@ -19,26 +19,33 @@ class FileList(LoginRequiredMixin, ListView):
         object = UserFile.objects.filter(owner= self.request.user)
         return object
 
-# Add file page view
-class AddFile(LoginRequiredMixin,UserLimit,FormView):
-    template_name = "file/AddFile.html"
+
+class AddFile(LoginRequiredMixin, LimitMixin, FormView):
+    '''Add a new file'''
+    template_name = "file/add.html"
     form_class = FileForm
-    success_url = "file:home"
+    success_url = "file:file-list"
+
     def form_valid(self, form):
         form = self.form_class(self.request.POST, self.request.FILES)
         form = form.save(commit=False)
-        form.slug = uuid.uuid4().hex.upper()[0:6]
-        form.owner = self.request.user
-        form_file = form.file
-        if form_file.size < 5000000 :
-            form.save()
-            User.objects.filter(username=self.request.user.username).update(
-                limit=self.request.user.limit - 1
-            )
-            return redirect(self.success_url)
 
-        else:
-            return redirect(self.success_url)
+        form.slug = slugify(form.title)
+        form.owner = self.request.user
+
+        if self.request.user.is_special and form.file.size < 10485760:
+                self.request.user.limit = self.request.user.limit - 1
+                self.request.user.save()
+                form.save()
+                return redirect(self.success_url)
+
+        if form.file.size < 5242880 :
+                self.request.user.limit = self.request.user.limit - 1
+                self.request.user.save()
+                form.save()
+                return redirect(self.success_url)
+
+        return redirect(self.success_url)
 
 
 # File detail view

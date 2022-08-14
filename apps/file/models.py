@@ -3,9 +3,9 @@ from accounts.models import User
 
 # Create your models here.
 class UserFile(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=100)
     description = models.TextField()
-    slug = models.SlugField(unique=True,blank=True,null=True)
+    slug = models.SlugField(blank=True, null=True)
     owner =  models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     file = models.FileField(upload_to="files/")
     views = models.ManyToManyField("IpAddress", blank=True, related_name="hits")
