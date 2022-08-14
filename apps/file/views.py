@@ -48,15 +48,17 @@ class AddFile(LoginRequiredMixin, LimitMixin, FormView):
         return redirect(self.success_url)
 
 
-# File detail view
 class DetailFile(DetailView):
-    template_name = "file/DetailFile.html"
+    '''Detail page of a file'''
+    template_name = "file/detail.html"
+
     def get_object(self):
-        slug = self.kwargs.get('slug')
-        object = get_object_or_404(UserFile, slug=slug)
+        object = get_object_or_404(UserFile, id=self.kwargs["id"], slug=self.kwargs["slug"])
         ip_address = self.request.user.ip_address
+        # add ip to the views
         if ip_address not in object.views.all():
             object.views.add(ip_address)
+
         return object
 
 # File download view

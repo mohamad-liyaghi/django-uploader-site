@@ -3,17 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {%block title%}Detail File Page{%endblock%}
+    {%block title%}File Detail{%endblock%}
 
 </head>
 <body>
 {%block body%}
 <br>
     <h3>Title: {{object.title}}</h3>  <br><hr>
-    <h5>Description: {{object.description}}</h5> <br><hr>
+    <p>Description: {{object.description}}</p><hr>
     <div>
-    <h5>Domain:</h5><p id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.slug}}/</p>
-    <input style="width:100px;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/>
+    <h6 style="display: inline;">Address: </h6>
+        <p style="display: inline;" id="demo">{{ request.META.HTTP_HOST }}/detail/{{object.id}}/{{object.slug}}/ </p>
+    <input style="width:90px; height: 12x;" class="btn btn-secondary" value="Copy Url" onclick="copy('demo')"/>
     </div>
     <script>
             function copy(element_id){
@@ -27,11 +28,10 @@
           document.body.removeChild(aux);}
     </script>
     <hr>
-        Download link:   <a href="{% url 'file:download-file' object.slug%}" type="submit" class="btn btn-secondary">Download</a>
+        Download link:   <a href="{% url 'file:download-file' object.slug%}" style="width: 90px;" type="submit" class="btn btn-secondary">Download</a>
     <hr>
     <h6> Viewed by {{object.views.count}} person</h6><hr>
-    <h5> Uploaded by: {{object.owner}}</h5><hr>
-
+    <h6> Uploaded by: {{object.owner}}</h6><hr>
 {%endblock%}
 </body>
 

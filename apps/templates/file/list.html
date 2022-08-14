@@ -32,7 +32,7 @@
                             Slug: {{file.slug}}
                         </div>
                         <div class="col-sm">
-                            <a href="{%url 'file:detail-file' file.slug %}" class="btn btn-secondary">Preview</a>
+                            <a href="{%url 'file:file-detail' file.id file.slug %}" class="btn btn-secondary">Preview</a>
                             <a href="{%url 'file:delete-file' file.slug%}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
