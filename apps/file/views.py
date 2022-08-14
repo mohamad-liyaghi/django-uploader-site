@@ -68,8 +68,9 @@ class FileDownload(View):
         return FileResponse(object.file, as_attachment=True)
 
 # File delete view
-def FileDelete(request, slug):
-    model = UserFile.objects.get(slug=slug)
-    model.delete()
-    User.objects.filter(username=request.user.username).update(limit=request.user.limit + 1)
-    return redirect('file:home')
+def DeleteFile(request, id, slug):
+    object = get_object_or_404(UserFile, id= id, slug= slug, owner= request.user)
+    object.delete()
+    request.user.limit = request.user.limit + 1
+    request.user.save()
+    return redirect('file:file-list')
