@@ -28,7 +28,7 @@
           document.body.removeChild(aux);}
     </script>
     <hr>
-        Download link:   <a href="{% url 'file:download-file' object.slug%}" style="width: 90px;" type="submit" class="btn btn-secondary">Download</a>
+        Download link:   <a href="{% url 'file:download-file' object.id object.slug%}" style="width: 90px;" type="submit" class="btn btn-secondary">Download</a>
     <hr>
     <h6> Viewed by {{object.views.count}} person</h6><hr>
     <h6> Uploaded by: {{object.owner}}</h6><hr>

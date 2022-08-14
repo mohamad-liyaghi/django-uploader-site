@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect,get_object_or_404
-from django.views.generic import View,ListView,DetailView,DeleteView,FormView
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import View, ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.urls import reverse_lazy
 from django.http import FileResponse
 from django.utils.text import slugify
+
 from file.models import UserFile
 from accounts.models import User
 from .forms import FileForm
@@ -26,6 +26,7 @@ class AddFile(LoginRequiredMixin, LimitMixin, FormView):
     form_class = FileForm
     success_url = "file:file-list"
 
+    @transaction.atomic()
     def form_valid(self, form):
         form = self.form_class(self.request.POST, self.request.FILES)
         form = form.save(commit=False)
@@ -63,11 +64,12 @@ class DetailFile(DetailView):
 
 # File download view
 class FileDownload(View):
-    def get(self, request,slug, *args, **kwargs):
-        object = get_object_or_404(UserFile, slug=slug)
+    def get(self, request, id, slug, *args, **kwargs):
+        object = get_object_or_404(UserFile, id= id, slug=slug)
         return FileResponse(object.file, as_attachment=True)
 
 # File delete view
+@transaction.atomic()
 def DeleteFile(request, id, slug):
     object = get_object_or_404(UserFile, id= id, slug= slug, owner= request.user)
     object.delete()

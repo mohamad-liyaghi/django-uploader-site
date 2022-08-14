@@ -7,6 +7,6 @@ urlpatterns = [
     path("", FileList.as_view(), name= "file-list"),
     path('add/',AddFile.as_view(),name="add-file"),
     path("detail/<int:id>/<str:slug>/", DetailFile.as_view(), name="file-detail"),
-    path("download/<str:slug>/",FileDownload.as_view(),name="download-file"),
+    path("download/<int:id>/<str:slug>/",FileDownload.as_view(),name="download-file"),
     path("delete/<int:id>/<str:slug>/", DeleteFile, name="delete-file")
 ]

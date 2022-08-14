@@ -7,7 +7,7 @@ class UserFile(models.Model):
     description = models.TextField()
     slug = models.SlugField(blank=True, null=True)
     owner =  models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
-    file = models.FileField(upload_to="files/")
+    file = models.FileField(upload_to="files/%Y-%m-%d")
     views = models.ManyToManyField("IpAddress", blank=True, related_name="hits")
     def __str__(self):
         return self.title
