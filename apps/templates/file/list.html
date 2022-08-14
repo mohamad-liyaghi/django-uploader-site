@@ -1,0 +1,54 @@
+{%extends 'base/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%block title%}Home{%endblock%}
+
+</head>
+<body>
+{%block body%}
+<div class="container">
+    Limit: {%if request.user.is_special%}
+        {{request.user.limit}}/50
+    {%else%}
+        {{request.user.limit}}/10
+    {%endif%}
+
+    <br>Is special: {{request.user.is_special}}
+
+    <br><a href="{%url 'file:add-file' %}">Add file</a>
+    <hr>
+    {% for file in files %}
+    <div class="text-center">
+        <div class="row align-items-start">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm">
+                            Name: {{file.title}}
+                        </div>
+                        <div class="col-sm">
+                            Slug: {{file.slug}}
+                        </div>
+                        <div class="col-sm">
+                            <a href="{%url 'file:detail-file' file.slug %}" class="btn btn-secondary">Preview</a>
+                            <a href="{%url 'file:delete-file' file.slug%}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </li>
+                <br>
+            </ul>
+        </div>
+        {% empty %}
+        <p>you haven't uploaded any file yet...</p>
+        <a href="{%url 'file:add-file'%}">Add new file</a>
+    </div>
+    {%endfor%}
+</div>
+<br>
+</div>
+
+{%endblock%}
+</body>
+</html>

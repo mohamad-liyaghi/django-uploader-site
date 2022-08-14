@@ -9,13 +9,16 @@ from file.models import UserFile
 from accounts.models import User
 from .forms import FileForm
 from .mixins import UserLimit
-# Create your views here.
-# Home page view
-class Home(LoginRequiredMixin,ListView):
-    template_name = "base/Home.html"
+
+class FileList(LoginRequiredMixin, ListView):
+    '''A list of all uploaded files from a user'''
+    template_name = "file/list.html"
+    context_object_name = "files"
+
     def get_queryset(self):
-        object = UserFile.objects.filter(owner=self.request.user)
+        object = UserFile.objects.filter(owner= self.request.user)
         return object
+
 # Add file page view
 class AddFile(LoginRequiredMixin,UserLimit,FormView):
     template_name = "file/AddFile.html"
