@@ -9,15 +9,15 @@ They are 2 types of users: <br>
 ## how to use
 ### Step 1:
 ```
-$ git clone https://github.com/Ml06py/django-uploader.git
+$ git clone https://github.com/mohamad-liyaghi/django-uploader-site.git
 ```
 ### Step 2:
 ```
-$ cd django-uploader/
+$ cd django-uploader-site/
 ```
 ### Step 3:
 ```
-$ pip install -r requirement.txt 
+$ pip install -r requirement.txt
 ```
 ### Step 4:
 ```
@@ -28,4 +28,3 @@ Shots:
 
 <img src="https://github.com/Ml06py/django-uploader/blob/main/shot/shot1.png" alt="shot1"> <br>
 <img src="https://github.com/Ml06py/django-uploader/blob/main/shot/shot2.png" alt="shot2">
-
